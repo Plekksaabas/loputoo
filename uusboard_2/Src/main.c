@@ -238,52 +238,41 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
   /* USER CODE BEGIN 1 */
-	sentDataUART										[0] = 0xAA;
-	sentDataUART										[1] = 0x00;
-	sentDataUART										[2] = 0x66;
-	sentDataUART										[3] = 0x01;
-	sentDataUART										[4] = 0x00;
+	sentDataUART								[0] = UART_START_BYTE;
+	sentDataUART								[1] = UART_WRITE;
+	sentDataUART								[2] = GYRO_OFFSET_Z_MSB_ADDR;
+	sentDataUART								[3] = 0x01;
+	sentDataUART								[4] = 0x00;
 	
-	tempUnitSelection							[0] = 0xAA;
-	tempUnitSelection							[1] = 0x00;
-	tempUnitSelection							[2] = 0x3B;
-	tempUnitSelection							[3] = 0x01;
-	tempUnitSelection							[4] = 0x00;
+	tempUnitSelection						[0] = UART_START_BYTE;
+	tempUnitSelection						[1] = UART_WRITE;
+	tempUnitSelection						[2] = UNIT_SEL_ADDR;
+	tempUnitSelection						[3] = 0x01;
+	tempUnitSelection						[4] = 0x00;
 	
-	tempSourceSelection           [0]  = 0xAA;
-	tempSourceSelection           [1]  = 0x00;
-	tempSourceSelection           [2]  = 0x40;
-	tempSourceSelection           [3]  = 0x01;
-	tempSourceSelection           [4]  = 0x00;	
-	//34
+	tempSourceSelection         [0]  = UART_START_BYTE;
+	tempSourceSelection         [1]  = UART_WRITE;
+	tempSourceSelection         [2]  = TEMP_SOURCE_ADDR;
+	tempSourceSelection         [3]  = 0x01;
+	tempSourceSelection         [4]  = 0x00;	
 	
-	for (int i = 0; i<2; i++){
-		receivedDataUART[i] = 0;
-	}
-
+	configurationSettingsMode 	[0] = UART_START_BYTE;
+	configurationSettingsMode 	[1] = UART_WRITE;
+	configurationSettingsMode 	[2] = OPR_MODE_ADDR;
+	configurationSettingsMode 	[3] = 0x01;
+	configurationSettingsMode 	[4] = 0x00;
 	
-	configurationSettingsMode [0] = 0xAA;
-	configurationSettingsMode [1] = 0x00;
-	configurationSettingsMode [2] = 0x3D;
-	configurationSettingsMode [3] = 0x01;
-	configurationSettingsMode [4] = 0x00;
-	
-	configurationFusionModeNDOF [0] = 0xAA;
-	configurationFusionModeNDOF [1] = 0x00;
-	configurationFusionModeNDOF [2] = 0x3D;
+	configurationSettingsMode 	[0] = UART_START_BYTE;
+	configurationSettingsMode 	[1] = UART_WRITE;
+	configurationSettingsMode 	[2] = OPR_MODE_ADDR;
 	configurationFusionModeNDOF [3] = 0x01;
 	configurationFusionModeNDOF [4] = 0x0C;
-
 	
-	configurationACCONLY [0] = 0xAA;
-	configurationACCONLY [1] = 0x00;
-	configurationACCONLY [2] = 0x3D;
-	configurationACCONLY [3] = 0x01;
-	configurationACCONLY [4] = 0x0C;
-	
-	
-	temperature = 0;
-	
+	configurationACCONLY 				[0] = UART_START_BYTE;
+	configurationACCONLY 				[1] = UART_WRITE;
+	configurationACCONLY 				[2] = OPR_MODE_ADDR;
+	configurationACCONLY 				[3] = 0x01;
+	configurationACCONLY 				[4] = 0x0C;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -300,6 +289,7 @@ int main(void)
   MX_USART1_UART_Init();
 
   /* USER CODE BEGIN 2 */
+	//Configuration settings
 	HAL_UART_Transmit(&huart1, configurationSettingsMode, 5, 200);
 	HAL_UART_Receive_IT(&huart1, receivedDataUART, 2);
 	HAL_Delay(1000);
@@ -325,15 +315,14 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-	temperature = getTemperature();
-  acc_Z_MSB   = getAcc_Z_MSB();
-	acc_Z_LSB   = getAcc_Z_LSB();
+	temperature  = getTemperature();
+  acc_Z_MSB    = getAcc_Z_MSB();
+	acc_Z_LSB    = getAcc_Z_LSB();
 	acc_Y_MSB    = getAcc_X_MSB();
 	acc_Y_LSB    = getAcc_X_LSB();
-  acc_X_MSB = getAcc_Y_MSB();
-	acc_X_LSB = getAcc_Y_LSB();
+  acc_X_MSB    = getAcc_Y_MSB();
+	acc_X_LSB    = getAcc_Y_LSB();
 	
-  //THIS IS THE LATEST VERSION
 	dataruined = 0;
 		
 	if (acc_X_MSB != 999 && acc_X_LSB != 999 && dataruined == 0){
@@ -362,12 +351,7 @@ int main(void)
 		
 	HAL_Delay(3000);
 	
-	if (isitworking == 0){
-		isitworking = 1;
-  }
-	else{
-		isitworking = 0;
-	}
+	isitworking++;
   }
   /* USER CODE END 3 */
 
