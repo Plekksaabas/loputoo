@@ -1,0 +1,25 @@
+--cpu=Cortex-M4.fp
+"uusboard_2\startup_stm32f446xx.o"
+"uusboard_2\stm32f4xx_hal_rcc_ex.o"
+"uusboard_2\stm32f4xx_hal_pwr.o"
+"uusboard_2\stm32f4xx_hal_tim_ex.o"
+"uusboard_2\stm32f4xx_hal_dma.o"
+"uusboard_2\stm32f4xx_hal_dma_ex.o"
+"uusboard_2\stm32f4xx_hal_flash_ramfunc.o"
+"uusboard_2\stm32f4xx_hal_tim.o"
+"uusboard_2\stm32f4xx_hal_gpio.o"
+"uusboard_2\stm32f4xx_hal.o"
+"uusboard_2\stm32f4xx_hal_flash.o"
+"uusboard_2\stm32f4xx_hal_flash_ex.o"
+"uusboard_2\stm32f4xx_hal_cortex.o"
+"uusboard_2\stm32f4xx_hal_rcc.o"
+"uusboard_2\stm32f4xx_hal_pwr_ex.o"
+"uusboard_2\stm32f4xx_hal_uart.o"
+"uusboard_2\main.o"
+"uusboard_2\stm32f4xx_hal_msp.o"
+"uusboard_2\stm32f4xx_it.o"
+"uusboard_2\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "uusboard_2\uusboard_2.sct"
+--diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "uusboard_2.map" -o uusboard_2\uusboard_2.axf
