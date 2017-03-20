@@ -332,7 +332,7 @@ int main(void)
   acc_X_MSB = getAcc_Y_MSB();
 	acc_X_LSB = getAcc_Y_LSB();
 	
-
+  //git test
 
 	if (acc_X_MSB != 999 && acc_X_LSB != 999){
 		acc_X = (acc_X_MSB << 8) | acc_X_LSB;	
