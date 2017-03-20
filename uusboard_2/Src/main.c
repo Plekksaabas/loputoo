@@ -66,6 +66,7 @@ int datareceived;
 int howmuchdatareceived;
 int i;
 int isitworking = 0;
+int dataruined = 0;
 uint8_t suvaline;
 uint8_t *psuvaline = &suvaline;
 int acc_Z_MSB;
@@ -333,29 +334,33 @@ int main(void)
 	acc_X_LSB = getAcc_Y_LSB();
 	
   //THIS IS THE LATEST VERSION
-
-	if (acc_X_MSB != 999 && acc_X_LSB != 999){
+	dataruined = 0;
+		
+	if (acc_X_MSB != 999 && acc_X_LSB != 999 && dataruined == 0){
 		acc_X = (acc_X_MSB << 8) | acc_X_LSB;	
 	}
   else {
-		acc_X = 999;
+		dataruined = 1;
+		acc_X = 9999;
 	}
 		
-	if (acc_Y_MSB != 999 && acc_Y_LSB != 999){
-		acc_Y = (acc_Y_MSB << 8) | acc_Y_LSB;	
+	if (acc_Y_MSB != 999 && acc_Y_LSB != 999 && dataruined == 0 ){
+		acc_Y = (acc_Y_MSB << 8) | acc_Y_LSB;
 	}
   else {
-		acc_Y = 999;
+		dataruined = 1;
+		acc_Y = 9999;
 	}
 		
-	if (acc_Z_MSB != 999 && acc_Z_LSB != 999){
+	if (acc_Z_MSB != 999 && acc_Z_LSB != 999 && dataruined == 0){
 		acc_Z = (acc_Z_MSB << 8) | acc_Z_LSB;	
 	}	
   else {
-		acc_Z = 999;
+		dataruined = 1;
+		acc_Z = 9999;
 	}	
 		
-	HAL_Delay(1000);
+	HAL_Delay(3000);
 	
 	if (isitworking == 0){
 		isitworking = 1;
