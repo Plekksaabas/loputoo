@@ -33,7 +33,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
-#include "registers.c"
+#include "registers.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -45,39 +45,10 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
-uint8_t sentDataUART     [5];
-uint8_t receivedDataUART [2];
-uint8_t receivedDataUARTBuffer [3];
-uint8_t sendDataReadInfo [4];
-uint8_t tempUnitSelection[5];
-uint8_t tempSourceSelection[5];
-uint8_t configurationFusionModeNDOF[5];
-uint8_t configurationSettingsMode[5];
-uint8_t configurationACCONLY [5];
-uint8_t HalStatus;
-
-uint16_t acc_Z = 0;
-uint16_t acc_Y = 0;
-uint16_t acc_X = 0;
-
-int dataindex;
-int datareceived;
-int howmuchdatareceived;
-int i;
-int isitworking = 0;
-int dataruined = 0;
-uint8_t suvaline;
-uint8_t *psuvaline = &suvaline;
-int acc_Z_MSB;
-int acc_Z_LSB;
-int acc_Y_MSB;
-int acc_Y_LSB;
-int acc_X_MSB;
-int acc_X_LSB;
-int temperature;
-int data;
-uint8_t datafromUART;
+uint8_t receivedDataUART[2], receivedDataUARTBuffer [3], sendDataReadInfo[4], tempUnitSelection[5], tempSourceSelection[5], configurationFusionModeNDOF[5], configurationSettingsMode[5], configurationACCONLY [5];
+uint16_t acc_Z, acc_Y, acc_X = 0;
+int isitworking, dataruined = 0;
+int acc_Z_MSB, acc_Z_LSB, acc_Y_MSB, acc_Y_LSB, acc_X_MSB, acc_X_LSB, temperature, data = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,9 +70,7 @@ void HAL_UART_RxCpltCallback (UART_HandleTypeDef *huart){
 int getReadData(){
 
 	byte_received = 0;
-	datareceived  = 0;
 	data			= 0;
-	howmuchdatareceived = 0;
 	int datareceive = 0;
 	
 	receivedDataUARTBuffer[0] = 0x00;
@@ -235,15 +204,7 @@ return data;
 
 int main(void)
 {
-
   /* USER CODE BEGIN 1 */
-  /* USER CODE BEGIN 1 */
-	sentDataUART								[0] = UART_START_BYTE;
-	sentDataUART								[1] = UART_WRITE;
-	sentDataUART								[2] = GYRO_OFFSET_Z_MSB_ADDR;
-	sentDataUART								[3] = 0x01;
-	sentDataUART								[4] = 0x00;
-	
 	tempUnitSelection						[0] = UART_START_BYTE;
 	tempUnitSelection						[1] = UART_WRITE;
 	tempUnitSelection						[2] = UNIT_SEL_ADDR;
@@ -262,9 +223,9 @@ int main(void)
 	configurationSettingsMode 	[3] = 0x01;
 	configurationSettingsMode 	[4] = 0x00;
 	
-	configurationSettingsMode 	[0] = UART_START_BYTE;
-	configurationSettingsMode 	[1] = UART_WRITE;
-	configurationSettingsMode 	[2] = OPR_MODE_ADDR;
+	configurationFusionModeNDOF [0] = UART_START_BYTE;
+	configurationFusionModeNDOF [1] = UART_WRITE;
+	configurationFusionModeNDOF [2] = OPR_MODE_ADDR;
 	configurationFusionModeNDOF [3] = 0x01;
 	configurationFusionModeNDOF [4] = 0x0C;
 	
@@ -279,17 +240,14 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-
   /* Configure the system clock */
   SystemClock_Config();
-
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_UART4_Init();
   MX_USART1_UART_Init();
-
   /* USER CODE BEGIN 2 */
-	//Configuration settings
+	//CONFIGURATION SETTINGS
 	HAL_UART_Transmit(&huart1, configurationSettingsMode, 5, 200);
 	HAL_UART_Receive_IT(&huart1, receivedDataUART, 2);
 	HAL_Delay(1000);
@@ -304,8 +262,7 @@ int main(void)
 	
 	HAL_UART_Transmit(&huart1, configurationFusionModeNDOF, 5, 200);
 	HAL_UART_Receive_IT(&huart1, receivedDataUART, 2);
-	HAL_Delay(1000);
-	
+	HAL_Delay(1000);	
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -322,35 +279,21 @@ int main(void)
 	acc_Y_LSB    = getAcc_X_LSB();
   acc_X_MSB    = getAcc_Y_MSB();
 	acc_X_LSB    = getAcc_Y_LSB();
-	
 	dataruined = 0;
 		
-	if (acc_X_MSB != 999 && acc_X_LSB != 999 && dataruined == 0){
+	if (acc_X_MSB != 999 && acc_X_LSB != 999 && acc_Y_MSB != 999 && acc_Y_LSB != 999 && acc_Z_MSB != 999 && acc_Z_LSB != 999 && dataruined == 0 ){
 		acc_X = (acc_X_MSB << 8) | acc_X_LSB;	
+		acc_Y = (acc_Y_MSB << 8) | acc_Y_LSB;
+		acc_Z = (acc_Z_MSB << 8) | acc_Z_LSB;	
 	}
   else {
 		dataruined = 1;
 		acc_X = 9999;
-	}
-		
-	if (acc_Y_MSB != 999 && acc_Y_LSB != 999 && dataruined == 0 ){
-		acc_Y = (acc_Y_MSB << 8) | acc_Y_LSB;
-	}
-  else {
-		dataruined = 1;
 		acc_Y = 9999;
+		acc_Z = 9999;
 	}
 		
-	if (acc_Z_MSB != 999 && acc_Z_LSB != 999 && dataruined == 0){
-		acc_Z = (acc_Z_MSB << 8) | acc_Z_LSB;	
-	}	
-  else {
-		dataruined = 1;
-		acc_Z = 9999;
-	}	
-		
-	HAL_Delay(3000);
-	
+	HAL_Delay(3000);	
 	isitworking++;
   }
   /* USER CODE END 3 */
