@@ -3,7 +3,7 @@
 <title>Static Call Graph - [uusboard_2\uusboard_2.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image uusboard_2\uusboard_2.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Tue Mar 21 23:09:31 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Wed Mar 22 01:58:22 2017
 <BR><P>
 <H3>Maximum Stack Usage =        168 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -590,6 +590,12 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort
 </UL>
 <BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getReadData
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAcc_Z_MSB
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAcc_Z_LSB
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAcc_Y_MSB
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAcc_Y_LSB
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAcc_X_MSB
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAcc_X_LSB
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;configurationSettings
 </UL>
 
@@ -739,61 +745,67 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sysConfig
 </UL>
 
-<P><STRONG><a name="[93]"></a>getAcc_X_LSB</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, main.o(i.getAcc_X_LSB))
+<P><STRONG><a name="[93]"></a>getAcc_X_LSB</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, main.o(i.getAcc_X_LSB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = getAcc_X_LSB &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getReadData
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Abort
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAccelerometerData
 </UL>
 
-<P><STRONG><a name="[95]"></a>getAcc_X_MSB</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, main.o(i.getAcc_X_MSB))
+<P><STRONG><a name="[95]"></a>getAcc_X_MSB</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, main.o(i.getAcc_X_MSB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = getAcc_X_MSB &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getReadData
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Abort
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAccelerometerData
 </UL>
 
-<P><STRONG><a name="[96]"></a>getAcc_Y_LSB</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, main.o(i.getAcc_Y_LSB))
+<P><STRONG><a name="[96]"></a>getAcc_Y_LSB</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, main.o(i.getAcc_Y_LSB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = getAcc_Y_LSB &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getReadData
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Abort
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAccelerometerData
 </UL>
 
-<P><STRONG><a name="[97]"></a>getAcc_Y_MSB</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, main.o(i.getAcc_Y_MSB))
+<P><STRONG><a name="[97]"></a>getAcc_Y_MSB</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, main.o(i.getAcc_Y_MSB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = getAcc_Y_MSB &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getReadData
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Abort
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAccelerometerData
 </UL>
 
-<P><STRONG><a name="[98]"></a>getAcc_Z_LSB</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, main.o(i.getAcc_Z_LSB))
+<P><STRONG><a name="[98]"></a>getAcc_Z_LSB</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, main.o(i.getAcc_Z_LSB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = getAcc_Z_LSB &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getReadData
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Abort
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAccelerometerData
 </UL>
 
-<P><STRONG><a name="[99]"></a>getAcc_Z_MSB</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, main.o(i.getAcc_Z_MSB))
+<P><STRONG><a name="[99]"></a>getAcc_Z_MSB</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, main.o(i.getAcc_Z_MSB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = getAcc_Z_MSB &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getReadData
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Abort
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAccelerometerData
 </UL>
 
-<P><STRONG><a name="[9a]"></a>getAccelerometerData</STRONG> (Thumb, 278 bytes, Stack size 8 bytes, main.o(i.getAccelerometerData))
+<P><STRONG><a name="[9a]"></a>getAccelerometerData</STRONG> (Thumb, 242 bytes, Stack size 8 bytes, main.o(i.getAccelerometerData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = getAccelerometerData &rArr; getAcc_Z_MSB &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getAcc_Z_MSB

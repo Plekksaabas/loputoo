@@ -68,6 +68,9 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+void HAL_UART_RxCpltCallback (UART_HandleTypeDef *huart){ 	
+	byte_received = 1;
+}
 void configurationData() {
 	configuration_TempUnitSelection						[0] = UART_START_BYTE;
 	configuration_TempUnitSelection						[1] = UART_WRITE;
@@ -135,9 +138,7 @@ void configurationData() {
 	ACC_OFFSET_Z_MSB							[3] = 0x01;
 	ACC_OFFSET_Z_MSB							[4] = uint8_acc_Z_MSB;						//remember to set it
 }
-void HAL_UART_RxCpltCallback (UART_HandleTypeDef *huart){ 	
-	byte_received = 1;
-}
+
 int getReadData(){
 
 	byte_received = 0;
@@ -178,6 +179,7 @@ int getTemperature(){
 	sendDataReadInfo			 [2] = TEMP_ADDR;
 	sendDataReadInfo			 [3] = 0x01;
 	
+	HAL_UART_Abort(&huart1);
 	HAL_UART_Transmit	(&huart1, sendDataReadInfo, 4, 200);
 	
 	data = getReadData();
@@ -194,6 +196,7 @@ int getAcc_X_LSB(){
 	sendDataReadInfo			 [2] = ACCEL_DATA_X_LSB_ADDR;
 	sendDataReadInfo			 [3] = 0x01;
 	
+	HAL_UART_Abort(&huart1);
 	HAL_UART_Transmit(&huart1, sendDataReadInfo, 4,500);
 	
 	data = getReadData();	
@@ -209,6 +212,7 @@ int getAcc_X_MSB(){
 	sendDataReadInfo			 [2] = ACCEL_DATA_X_MSB_ADDR;
 	sendDataReadInfo			 [3] = 0x01;
 	
+	HAL_UART_Abort(&huart1);
 	HAL_UART_Transmit(&huart1, sendDataReadInfo, 4,500);
 	
 	data = getReadData();	
@@ -224,6 +228,7 @@ int getAcc_Y_LSB(){
 	sendDataReadInfo			 [2] = ACCEL_DATA_Y_LSB_ADDR;
 	sendDataReadInfo			 [3] = 0x01;
 	
+	HAL_UART_Abort(&huart1);
 	HAL_UART_Transmit(&huart1, sendDataReadInfo, 4,500);
 	
 	data = getReadData();	
@@ -238,6 +243,7 @@ int getAcc_Y_MSB(){
 	sendDataReadInfo			 [2] = ACCEL_DATA_Y_MSB_ADDR;
 	sendDataReadInfo			 [3] = 0x01;
 	
+	HAL_UART_Abort(&huart1);
 	HAL_UART_Transmit(&huart1, sendDataReadInfo, 4,500);
 	
 	data = getReadData();	
@@ -252,6 +258,7 @@ int getAcc_Z_LSB(){
 	sendDataReadInfo			 [2] = ACCEL_DATA_Z_LSB_ADDR;
 	sendDataReadInfo			 [3] = 0x01;
 	
+	HAL_UART_Abort(&huart1);
 	HAL_UART_Transmit(&huart1, sendDataReadInfo, 4,500);
 	
 	data = getReadData();	
@@ -268,6 +275,7 @@ int getAcc_Z_MSB(){
 	sendDataReadInfo			 [2] = ACCEL_DATA_Z_MSB_ADDR;
 	sendDataReadInfo			 [3] = 0x01;
 	
+	HAL_UART_Abort(&huart1);
 	HAL_UART_Transmit(&huart1, sendDataReadInfo, 4,500);
 	
 	data = getReadData();	
@@ -302,17 +310,17 @@ bool getAccelerometerData(){
 	bool error = false;
 	dataruined = 0;
 
-		uint8_acc_X_LSB = 0x00;
-		uint8_acc_X_MSB = 0x00;
-		acc_X						= 0;
-		
-		uint8_acc_Y_LSB = 0x00;
-		uint8_acc_Y_MSB = 0x00;
-		acc_Y						= 0;
-		
-		uint8_acc_Z_LSB = 0x00;
-		uint8_acc_Z_MSB = 0x00;
-		acc_Z						= 0;
+//		uint8_acc_X_LSB = 0x00;
+//		uint8_acc_X_MSB = 0x00;
+//		acc_X						= 0;
+//		
+//		uint8_acc_Y_LSB = 0x00;
+//		uint8_acc_Y_MSB = 0x00;
+//		acc_Y						= 0;
+//		
+//		uint8_acc_Z_LSB = 0x00;
+//		uint8_acc_Z_MSB = 0x00;
+//		acc_Z						= 0;
 	
 	acc_X_LSB    = getAcc_X_LSB();
 	acc_X_MSB    = getAcc_X_MSB();
@@ -444,7 +452,7 @@ int main(void)
 //	temperature  = getTemperature();
 	accelerometerData_Error = getAccelerometerData();
 
-	HAL_Delay(1000);	
+	HAL_Delay(3000);	
 	while (config_error == true){
 		
 	}
