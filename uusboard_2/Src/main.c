@@ -34,7 +34,7 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "registers.h"
-
+#include <stdbool.h>
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -49,6 +49,7 @@ uint8_t receivedDataUART[2], receivedDataUARTBuffer [3], sendDataReadInfo[4], te
 uint16_t acc_Z, acc_Y, acc_X = 0;
 int isitworking, dataruined = 0;
 int acc_Z_MSB, acc_Z_LSB, acc_Y_MSB, acc_Y_LSB, acc_X_MSB, acc_X_LSB, temperature, data = 0;
+bool config_error = false;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -200,6 +201,29 @@ int getAcc_X_LSB(){
 
 return data;	
 }
+bool configurationSettings(UART_HandleTypeDef *huart, uint8_t *dataToSend, int howManyBytes, int delay) {
+	byte_received   = 0;
+	int datareceive = 0;
+	bool data       = false;
+	receivedDataUART [0] = 0x00;
+	receivedDataUART [1] = 0x00;
+	HAL_UART_Transmit(huart, dataToSend, howManyBytes, delay);
+	while (byte_received == 0){
+		if (datareceive == 0){
+			HAL_UART_Receive_IT(huart, receivedDataUART, 2);
+			datareceive =1;
+		}
+	}
+	if (receivedDataUART[0] == 0xEE && receivedDataUART[1] != 0x01){
+		HAL_UART_Abort(huart);
+		data = true;
+	}
+	if (byte_received == 1 && receivedDataUART[1] != 0xEE && receivedDataUART[1] !=0x00 && receivedDataUART[1] !=0x03){
+		data = false;
+}
+	
+return data;
+}
 /* USER CODE END 0 */
 
 int main(void)
@@ -248,21 +272,17 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 	//CONFIGURATION SETTINGS
-	HAL_UART_Transmit(&huart1, configurationSettingsMode, 5, 200);
-	HAL_UART_Receive_IT(&huart1, receivedDataUART, 2);
-	HAL_Delay(1000);
-	
-	HAL_UART_Transmit(&huart1, tempUnitSelection, 5, 200);
-	HAL_UART_Receive_IT(&huart1, receivedDataUART, 2);
-	HAL_Delay(1000);
-	
-	HAL_UART_Transmit(&huart1, tempSourceSelection, 5, 200);
-	HAL_UART_Receive_IT(&huart1, receivedDataUART, 2);	
-	HAL_Delay(1000);
-	
-	HAL_UART_Transmit(&huart1, configurationFusionModeNDOF, 5, 200);
-	HAL_UART_Receive_IT(&huart1, receivedDataUART, 2);
-	HAL_Delay(1000);	
+	HAL_Delay(2000);
+	if (config_error == false){
+		config_error = configurationSettings(&huart1, configurationSettingsMode, 5, 200);
+	}
+	if (config_error == false){
+		config_error = configurationSettings(&huart1, tempSourceSelection, 5, 200);
+	}	
+	if (config_error == false){
+	config_error = configurationSettings(&huart1, configurationFusionModeNDOF, 5, 200);
+	}	
+	HAL_Delay(500);	
   /* USER CODE END 2 */
 
   /* Infinite loop */
