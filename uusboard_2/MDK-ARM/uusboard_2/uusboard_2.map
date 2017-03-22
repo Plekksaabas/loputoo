@@ -216,10 +216,10 @@ Section Cross References
     main.o(i.main) refers to main.o(i.getTemperature) for getTemperature
     main.o(i.main) refers to main.o(i.getAcc_Z_MSB) for getAcc_Z_MSB
     main.o(i.main) refers to main.o(i.getAcc_Z_LSB) for getAcc_Z_LSB
-    main.o(i.main) refers to main.o(i.getAcc_X_MSB) for getAcc_X_MSB
-    main.o(i.main) refers to main.o(i.getAcc_X_LSB) for getAcc_X_LSB
     main.o(i.main) refers to main.o(i.getAcc_Y_MSB) for getAcc_Y_MSB
     main.o(i.main) refers to main.o(i.getAcc_Y_LSB) for getAcc_Y_LSB
+    main.o(i.main) refers to main.o(i.getAcc_X_MSB) for getAcc_X_MSB
+    main.o(i.main) refers to main.o(i.getAcc_X_LSB) for getAcc_X_LSB
     main.o(i.main) refers to main.o(.data) for .data
     main.o(i.main) refers to main.o(.bss) for .bss
     stm32f4xx_hal_msp.o(i.HAL_MspInit) refers to stm32f4xx_hal_cortex.o(i.HAL_NVIC_SetPriorityGrouping) for HAL_NVIC_SetPriorityGrouping
@@ -963,21 +963,21 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-      1100        128          0         85        128       9192   main.o
-        36          8        452          0       1024        856   startup_stm32f446xx.o
-       142         22          0          4          0       4459   stm32f4xx_hal.o
-       228         14          0          0          0      32217   stm32f4xx_hal_cortex.o
-       178          0          0          0          0       2135   stm32f4xx_hal_dma.o
-       420         42          0          0          0       1868   stm32f4xx_hal_gpio.o
-       240         16          0          0          0       1617   stm32f4xx_hal_msp.o
-       488         50         16          0          0       3817   stm32f4xx_hal_rcc.o
-      1016         30          0          0          0     671926   stm32f4xx_hal_rcc_ex.o
-      1802         14          0          0          0      10584   stm32f4xx_hal_uart.o
-        54         12          0          4          0       5357   stm32f4xx_it.o
-        84         18          0          4          0       1183   system_stm32f4xx.o
+      1100        128          0         85        128       9160   main.o
+        36          8        452          0       1024        840   startup_stm32f446xx.o
+       142         22          0          4          0       4435   stm32f4xx_hal.o
+       228         14          0          0          0      32185   stm32f4xx_hal_cortex.o
+       178          0          0          0          0       2127   stm32f4xx_hal_dma.o
+       420         42          0          0          0       1860   stm32f4xx_hal_gpio.o
+       240         16          0          0          0       1605   stm32f4xx_hal_msp.o
+       488         50         16          0          0       3797   stm32f4xx_hal_rcc.o
+      1016         30          0          0          0     671886   stm32f4xx_hal_rcc_ex.o
+      1802         14          0          0          0      10532   stm32f4xx_hal_uart.o
+        54         12          0          4          0       5325   stm32f4xx_it.o
+        84         18          0          4          0       1171   system_stm32f4xx.o
 
     ----------------------------------------------------------------------
-      5794        354        500        100       1156     745211   Object Totals
+      5794        354        500        100       1156     744923   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          6          0          0          3          4          0   (incl. Padding)
 
@@ -1016,8 +1016,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5880        370        500        100       1156     740083   Grand Totals
-      5880        370        500        100       1156     740083   ELF Image Totals
+      5880        370        500        100       1156     739795   Grand Totals
+      5880        370        500        100       1156     739795   ELF Image Totals
       5880        370        500        100          0          0   ROM Totals
 
 ==============================================================================

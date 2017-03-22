@@ -46,7 +46,7 @@ UART_HandleTypeDef huart1;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 uint8_t receivedDataUART[2], receivedDataUARTBuffer [3], sendDataReadInfo[4], tempUnitSelection[5], tempSourceSelection[5], configurationFusionModeNDOF[5], configurationSettingsMode[5], configurationACCONLY [5];
-uint16_t acc_Z, acc_Y, acc_X = 0;
+int16_t acc_Z, acc_Y, acc_X = 0;
 int isitworking, dataruined = 0;
 int acc_Z_MSB, acc_Z_LSB, acc_Y_MSB, acc_Y_LSB, acc_X_MSB, acc_X_LSB, temperature, data = 0;
 bool config_error = false;
@@ -295,10 +295,10 @@ int main(void)
 	temperature  = getTemperature();
   acc_Z_MSB    = getAcc_Z_MSB();
 	acc_Z_LSB    = getAcc_Z_LSB();
-	acc_Y_MSB    = getAcc_X_MSB();
-	acc_Y_LSB    = getAcc_X_LSB();
-  acc_X_MSB    = getAcc_Y_MSB();
-	acc_X_LSB    = getAcc_Y_LSB();
+	acc_Y_MSB    = getAcc_Y_MSB();
+	acc_Y_LSB    = getAcc_Y_LSB();
+  acc_X_MSB    = getAcc_X_MSB();
+	acc_X_LSB    = getAcc_X_LSB();
 	dataruined = 0;
 		
 	if (acc_X_MSB != 999 && acc_X_LSB != 999 && acc_Y_MSB != 999 && acc_Y_LSB != 999 && acc_Z_MSB != 999 && acc_Z_LSB != 999 && dataruined == 0 ){
@@ -313,7 +313,7 @@ int main(void)
 		acc_Z = 9999;
 	}
 		
-	HAL_Delay(3000);	
+	HAL_Delay(300);	
 	isitworking++;
   }
   /* USER CODE END 3 */
