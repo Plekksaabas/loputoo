@@ -1,4 +1,5 @@
 uusboard_2\main.o: ../Src/main.c
+uusboard_2\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 uusboard_2\main.o: ../Inc/main.h
 uusboard_2\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 uusboard_2\main.o: ../Inc/stm32f4xx_hal_conf.h
@@ -15,7 +16,6 @@ uusboard_2\main.o: ../Drivers/CMSIS/Include/core_cmSimd.h
 uusboard_2\main.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 uusboard_2\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 uusboard_2\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-uusboard_2\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 uusboard_2\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 uusboard_2\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 uusboard_2\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
